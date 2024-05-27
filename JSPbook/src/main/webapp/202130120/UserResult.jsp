@@ -8,7 +8,6 @@
 </head>
 <body>
 <h1>회원 입력 결과</h1><br>
-
 <%
 	request.setCharacterEncoding("UTF-8");
 	
@@ -20,7 +19,6 @@
 	
 	sphone = sphone.substring(0, 3) + "-" + sphone.substring(3, 7) + "-" + sphone.substring(7);
 %>
-
 아이디 : <%=sid %><br>
 비번 : <%=spwd %><br>
 비번확인 :
