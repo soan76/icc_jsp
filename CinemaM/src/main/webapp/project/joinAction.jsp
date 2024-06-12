@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
@@ -14,9 +14,9 @@
         String userName = request.getParameter("userName");
         
 
-        String dbURL = "jdbc:mysql://localhost:3306/cinemam"; // 데이터베이스 URL 수정 필요
-        String dbUser = "root"; // 데이터베이스 사용자명 수정 필요
-        String dbPassword = "abcd1234"; // 데이터베이스 비밀번호 수정 필요
+        String dbURL = "jdbc:mysql://localhost:3306/cinemam"; 
+        String dbUser = "root";
+        String dbPassword = "abcd1234";
 
         Connection conn = null;
         PreparedStatement pstmt = null;

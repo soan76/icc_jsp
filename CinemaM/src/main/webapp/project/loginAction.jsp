@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
@@ -8,57 +8,39 @@
     <title>Login Action</title>
 </head>
 <body>
-    <%
-        String userID = request.getParameter("userId");
+    <%	
+        String userId = request.getParameter("userId");
         String password = request.getParameter("userPw");
+        
 
-        String dbURL = "jdbc:mysql://localhost:3306/cinemam"; // µ¥ÀÌÅÍº£ÀÌ½º URL ¼öÁ¤ ÇÊ¿ä
-        String dbUser = "root"; // µ¥ÀÌÅÍº£ÀÌ½º »ç¿ëÀÚ¸í ¼öÁ¤ ÇÊ¿ä
-        String dbPassword = "abcd1234"; // µ¥ÀÌÅÍº£ÀÌ½º ºñ¹Ð¹øÈ£ ¼öÁ¤ ÇÊ¿ä
+        String dbURL = "jdbc:mysql://localhost:3306/cinemam"; // ë°ì´í„°ë² ì´ìŠ¤ URL ìˆ˜ì • í•„ìš”
+        String dbUser = "root"; // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ìžëª… ìˆ˜ì • í•„ìš”
+        String dbPassword = "abcd1234"; // ë°ì´í„°ë² ì´ìŠ¤ ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì • í•„ìš”
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
+		
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbUser, dbPassword);
 
-            String sql = "SELECT * FROM user WHERE userId=? AND userPw=?";
+            String sql = "SELECT * FROM user_tbl WHERE userId=? AND userPw=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userID);
+            pstmt.setString(1, userId);
             pstmt.setString(2, password);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 out.println("Login Successful");
+                session.setAttribute("userId", userId); // ì¼ì¹˜í•œë‹¤ë©´, sessionì— ì €ìž¥
+                response.sendRedirect("index.jsp"); 
             } else {
-                out.println("Invalid credentials. Please try again.");
+                out.println("try again.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     %>
 </body>
